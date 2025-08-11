@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FIRE財務獨立計算機by效率充電站</title>
+    <title>🔥 FIRE 財務獨立計算機 by 效率充電站</title>
     <!-- 引入 Google Fonts 和 Chart.js 圖表庫 -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -94,10 +94,24 @@
             padding: 5px 0;
             list-style: '💡 ';
         }
-        .definitions-section p {
+        .definitions-section p, .definitions-section table {
             margin-top: 10px;
             padding-left: 20px;
             color: var(--light-text-color);
+        }
+        /* 表格樣式 */
+        .definitions-section table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .definitions-section th, .definitions-section td {
+            text-align: left;
+            padding: 8px;
+            border: 1px solid var(--border-color);
+        }
+        .definitions-section th {
+            background-color: var(--info-color);
+            color: var(--text-color);
         }
 
         /* --- 表單樣式 --- */
@@ -222,6 +236,7 @@
         }
 
         .chart-card {
+            position: relative; /* 為了下載按鈕定位 */
             background-color: #fff;
             padding: 20px;
             border-radius: 8px;
@@ -240,6 +255,28 @@
             margin-top: 15px;
             font-size: 14px;
             padding: 0 10px;
+        }
+
+        /* 下載按鈕樣式 */
+        .download-btn {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background-color: var(--secondary-color);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0.5;
+            transition: opacity 0.3s;
+        }
+        .download-btn:hover {
+            opacity: 1;
         }
         
         /* --- 互動區塊樣式 --- */
@@ -338,9 +375,8 @@
 
     <div class="container">
         <header>
-            <h1>🔥 FIRE 財務獨立計算機 </h1>
-            <h2>效率充電站 AI Project I</h2>
-            <p>想知道自己距離「想工作才工作」的自由人生還有多遠嗎？</p> 
+            <h1>🔥 FIRE 財務獨立計算機</h1>
+            <p>想知道自己距離「想工作才工作」的自由人生還有多遠嗎？</p>
             <p>輸入您的財務狀況，讓我們用數據為您描繪出通往財務獨立的藍圖！</p>
         </header>
 
@@ -369,6 +405,51 @@
                 <details>
                     <summary>什麼是「實質報酬率」 (Real Rate of Return)？</summary>
                     <p>這是<strong>扣除通貨膨脹影響後</strong>的真實投資報酬率。例如，如果您的投資賺了7%，但當年通膨是2%，您的資產購買力實際只增長了約5%。這個計算機使用實質報酬率來做更精確的估算。</p>
+                </details>
+            </div>
+
+            <!-- 新增：投資方向參考區塊 -->
+            <div class="definitions-section">
+                <details>
+                    <summary>投資方向參考</summary>
+                    <p><strong>免責聲明：</strong>以下數據為歷史資料回測，<strong>過去的績效不保證未來的報酬</strong>。此處資料僅供參考，不構成任何投資建議。</p>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>市場</th>
+                                <th>ETF代碼</th>
+                                <th>簡介</th>
+                                <th>近10年年化報酬率(含息)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>美股 (S&P 500)</td>
+                                <td>VOO</td>
+                                <td>追蹤美國前500大公司，最能代表美國整體市場。</td>
+                                <td>約 12.5%</td>
+                            </tr>
+                            <tr>
+                                <td>美股 (Nasdaq 100)</td>
+                                <td>QQQ</td>
+                                <td>追蹤納斯達克100家最大非金融公司，以科技股為主。</td>
+                                <td>約 18.5%</td>
+                            </tr>
+                            <tr>
+                                <td>台股 (台灣50)</td>
+                                <td>0050</td>
+                                <td>追蹤台灣市值前50大的公司，代表台股藍籌股表現。</td>
+                                <td>約 14.8%</td>
+                            </tr>
+                            <tr>
+                                <td>台股 (高股息)</td>
+                                <td>0056</td>
+                                <td>從台灣50與中型100指數中，挑選高現金殖利率預期的公司。</td>
+                                <td>約 11.7%</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <p style="font-size: 12px; text-align: right;">*數據統計至2024年初</p>
                 </details>
             </div>
 
@@ -427,8 +508,14 @@
 
                 <div class="charts-container">
                     <div class="chart-card">
-                        <h3>� 圖表一：資產累積成長曲線</h3>
+                        <h3>📊 圖表一：資產累積成長曲線</h3>
                         <canvas id="assetGrowthChart"></canvas>
+                        <button id="downloadChartBtn" class="download-btn" title="下載圖表">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                                <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z"/>
+                                <path d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z"/>
+                            </svg>
+                        </button>
                     </div>
                     <div class="chart-card">
                         <h3>📊 圖表二：退休金來源分析</h3>
@@ -477,6 +564,7 @@
             const resultsSection = document.getElementById('results');
             const monthlyInvestmentSlider = document.getElementById('monthlyInvestmentSlider');
             const monthlyInvestmentInput = document.getElementById('monthlyInvestment');
+            const downloadChartBtn = document.getElementById('downloadChartBtn');
             
             let assetGrowthChartInstance;
             let fundCompositionChartInstance;
@@ -626,7 +714,7 @@
                             data: [principal, growth > 0 ? growth : 0],
                             backgroundColor: [infoColor, successColor],
                             borderColor: 'var(--card-bg-color)',
-                            borderWidth: 0,
+                            borderWidth: 2,
                             hoverOffset: 4
                         }]
                     },
@@ -656,6 +744,18 @@
                     effectText.textContent = `注意，您將延後 ${newRetirementAge - originalRetirementAge} 年，在 ${newRetirementAge} 歲退休。`;
                 } else {
                     effectText.textContent = `退休年齡不變，但更高的投入能讓資產更雄厚！`;
+                }
+            });
+
+            // 新增：下載圖表按鈕的事件監聽器
+            downloadChartBtn.addEventListener('click', function() {
+                if (assetGrowthChartInstance) {
+                    const link = document.createElement('a');
+                    link.href = assetGrowthChartInstance.toBase64Image('image/png', 1);
+                    link.download = '我的FIRE資產累積藍圖.png';
+                    link.click();
+                } else {
+                    alert('請先計算您的FIRE藍圖，才能下載圖表！');
                 }
             });
         });
